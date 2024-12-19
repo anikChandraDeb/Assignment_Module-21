@@ -1,10 +1,10 @@
 import { JWT_EXPIRATION_TIME ,JWT_SECRET} from "../config/config.js";
 import jwt from "jsonwebtoken";
 
-export const EncodeToken=(email,user_id)=>{
+export const EncodeToken=(user_id)=>{
     const KEY = JWT_SECRET;
     const EXPIRE={expiresIn:JWT_EXPIRATION_TIME};
-    const PAYLOAD={email:email,user_id:user_id};
+    const PAYLOAD={user_id:user_id};
     return jwt.sign(PAYLOAD,KEY,EXPIRE);
 }
 

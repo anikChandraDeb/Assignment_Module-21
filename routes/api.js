@@ -1,36 +1,46 @@
 import express from "express";
 const router = express.Router();
-import * as taskController from "../app/controllers/taskController.js";
+import * as userController from "../app/controllers/userController.js";
 import * as featureController from "../app/controllers/featureController.js";
-import authMiddlewares from "../app/middlewares/authMiddlewares.js";
+import { authenticateToken } from "../app/middlewares/authMiddlewares.js";
+import jwt from "jsonwebtoken";
 
-//Create Route
-router.post('/createTask',taskController.createTask);
+router.post('/register', userController.registerUser);
+router.post('/login', userController.loginUser);
+router.get('/profile', authenticateToken, userController.getProfile);
+router.get('/profiles', authenticateToken, userController.getAllProfiles);
+router.put('/updateProfile/:id', authenticateToken, userController.updateUser);
+router.delete('/deleteProfile/:id', authenticateToken, userController.deleteUser);
 
-//Read Route
-router.get('/readTask',taskController.readTask);
 
-//Update Route
-router.put('/updateTask',taskController.updateTask);
 
-//Delete Route
-router.delete('/deleteTask',taskController.deleteTask);
+// //Create Route
+// router.post('/createTask',taskController.createTask);
 
-//JWT token encode and decode route
-router.get("/feature1/TokenEncode",featureController.TokenEncode);
-router.get("/feature2/TokenDecode",featureController.TokenDecode);
+// //Read Route
+// router.get('/readTask',taskController.readTask);
 
-//Email route
-router.get("/feature3/EmailSend",featureController.Email);
+// //Update Route
+// router.put('/updateTask',taskController.updateTask);
 
-//Profile route
-router.get('/feature4/Profile',authMiddlewares,featureController.Profile);
+// //Delete Route
+// router.delete('/deleteTask',taskController.deleteTask);
 
-//cookie
-router.get('/feature5/CreateCookies',featureController.CreateCookies);
-router.get('/feature6/RemoveCookies',featureController.RemoveCookies);
+// //JWT token encode and decode route
+// router.get("/feature1/TokenEncode",featureController.TokenEncode);
+// router.get("/feature2/TokenDecode",featureController.TokenDecode);
 
-//File Upload route
-router.post('/feature7/FileUpload',featureController.FileUpload);
+// //Email route
+// router.get("/feature3/EmailSend",featureController.Email);
+
+// //Profile route
+// router.get('/feature4/Profile',authMiddlewares,featureController.Profile);
+
+// //cookie
+// router.get('/feature5/CreateCookies',featureController.CreateCookies);
+// router.get('/feature6/RemoveCookies',featureController.RemoveCookies);
+
+// //File Upload route
+// router.post('/feature7/FileUpload',featureController.FileUpload);
 
 export default router; //export this file
